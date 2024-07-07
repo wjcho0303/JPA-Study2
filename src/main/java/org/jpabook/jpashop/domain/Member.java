@@ -29,6 +29,9 @@ public class Member {
     @JoinColumn(name = "team_id")
     private Team team;
 
+    @OneToOne(mappedBy = "member")
+    private Cart cart;
+
     public Long getId() {
         return id;
     }
