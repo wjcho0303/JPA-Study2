@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Item {
+public abstract class Item {
     @Id
     @GeneratedValue
     @Column(name = "item_id")
