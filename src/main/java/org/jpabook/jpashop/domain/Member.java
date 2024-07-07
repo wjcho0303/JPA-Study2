@@ -1,6 +1,8 @@
 package org.jpabook.jpashop.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -19,6 +21,9 @@ public class Member {
 
 //    @Column(name = "team_id")
 //    private Long teamId;
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
