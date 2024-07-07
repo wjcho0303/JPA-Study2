@@ -30,6 +30,11 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
     public Long getId() {
         return id;
     }
