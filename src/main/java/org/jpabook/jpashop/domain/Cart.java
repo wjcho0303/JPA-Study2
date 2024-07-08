@@ -3,7 +3,7 @@ package org.jpabook.jpashop.domain;
 import javax.persistence.*;
 
 @Entity
-public class Cart {
+public class Cart extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
