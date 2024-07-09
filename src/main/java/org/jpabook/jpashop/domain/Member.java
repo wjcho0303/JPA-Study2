@@ -29,7 +29,7 @@ public class Member {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     private Cart cart;
 
     public Long getId() {
