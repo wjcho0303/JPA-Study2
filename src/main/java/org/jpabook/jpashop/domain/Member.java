@@ -143,4 +143,20 @@ public class Member {
     public void setTeam(Team team) {
         this.team = team;
     }
+
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    public Set<String> getFavoriteFoods() {
+        return favoriteFoods;
+    }
+
+    public List<Address> getAddressesHistory() {
+        return addressesHistory;
+    }
 }
