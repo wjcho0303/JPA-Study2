@@ -40,4 +40,9 @@ public class JobPeriod {
         JobPeriod jobPeriod = (JobPeriod) object;
         return Objects.equals(startDate, jobPeriod.startDate) && Objects.equals(endDate, jobPeriod.endDate);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(startDate, endDate);
+    }
 }
