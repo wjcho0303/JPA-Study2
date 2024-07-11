@@ -44,6 +44,7 @@ public class Member {
 //    @Column(name = "team_id")
 //    private Long teamId;
 
+    @Column(name = "food_name")
     @ElementCollection
     @CollectionTable(name = "favorite_foods", joinColumns = @JoinColumn(name = "member_id"))
     private Set<String> favoriteFoods = new HashSet<>();
