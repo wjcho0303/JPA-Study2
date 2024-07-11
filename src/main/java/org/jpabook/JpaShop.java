@@ -18,6 +18,7 @@ public class JpaShop {
 
         try {
             Address address1 = new Address("서울특별시", "강서구 까치산로1길", "115-115");
+            AddressEntity addressEntity1 = new AddressEntity(address1);
             Member member1 = new Member();
             member1.setName("홍길동");
             member1.setHomeAddress(address1);
@@ -26,10 +27,9 @@ public class JpaShop {
             member1.getFavoriteFoods().add("피자");
             member1.getFavoriteFoods().add("햄버거");
 
-            member1.getAddressesHistory().add(address1);
+            member1.getAddressHistory().add(addressEntity1);
 
             em.persist(member1);
-
 
             tx.commit();
         } catch (Exception e) {

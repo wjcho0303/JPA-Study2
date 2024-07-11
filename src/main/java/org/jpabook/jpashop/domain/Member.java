@@ -49,9 +49,13 @@ public class Member {
     @CollectionTable(name = "favorite_foods", joinColumns = @JoinColumn(name = "member_id"))
     private Set<String> favoriteFoods = new HashSet<>();
 
-    @ElementCollection
-    @CollectionTable(name = "address_history", joinColumns = @JoinColumn(name = "member_id"))
-    private List<Address> addressesHistory = new ArrayList<>();
+//    @ElementCollection
+//    @CollectionTable(name = "address_history", joinColumns = @JoinColumn(name = "member_id"))
+//    private List<Address> addressesHistory = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "member_id")
+    private List<AddressEntity> addressHistory = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
@@ -156,7 +160,11 @@ public class Member {
         return favoriteFoods;
     }
 
-    public List<Address> getAddressesHistory() {
-        return addressesHistory;
+//    public List<Address> getAddressesHistory() {
+//        return addressesHistory;
+//    }
+
+    public List<AddressEntity> getAddressHistory() {
+        return addressHistory;
     }
 }
