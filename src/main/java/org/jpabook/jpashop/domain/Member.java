@@ -1,6 +1,7 @@
 package org.jpabook.jpashop.domain;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +14,30 @@ public class Member {
 
     private String name;
 
-    private String city;
+    // JobPeriod
+//    private LocalDateTime startDate;
+//    private LocalDateTime endDate;
+    @Embedded
+    private JobPeriod jobPeriod;
 
-    private String street;
+//    private String city;
+//    private String street;
+//    private String zipcode;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city", column = @Column(name = "work_city")),
+            @AttributeOverride(name = "street", column = @Column(name = "work_street")),
+            @AttributeOverride(name = "zipcode", column = @Column(name = "work_zipcode"))
+    })
+    private Address jobAddress;
 
-    private String zipcode;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city", column = @Column(name = "home_city")),
+            @AttributeOverride(name = "street", column = @Column(name = "home_street")),
+            @AttributeOverride(name = "zipcode", column = @Column(name = "home_zipcode"))
+    })
+    private Address homeAddress;
 
 //    @Column(name = "team_id")
 //    private Long teamId;
@@ -48,29 +68,29 @@ public class Member {
         this.name = name;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
+//    public String getCity() {
+//        return city;
+//    }
+//
+//    public void setCity(String city) {
+//        this.city = city;
+//    }
+//
+//    public String getStreet() {
+//        return street;
+//    }
+//
+//    public void setStreet(String street) {
+//        this.street = street;
+//    }
+//
+//    public String getZipcode() {
+//        return zipcode;
+//    }
+//
+//    public void setZipcode(String zipcode) {
+//        this.zipcode = zipcode;
+//    }
 
 //    public Long getTeamId() {
 //        return teamId;
@@ -79,6 +99,31 @@ public class Member {
 //    public void setTeamId(Long teamId) {
 //        this.teamId = teamId;
 //    }
+
+
+    public JobPeriod getJobPeriod() {
+        return jobPeriod;
+    }
+
+    public void setJobPeriod(JobPeriod jobPeriod) {
+        this.jobPeriod = jobPeriod;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 
     public Team getTeam() {
         return team;
