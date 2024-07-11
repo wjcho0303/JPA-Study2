@@ -20,6 +20,14 @@ public class Address {
         return getCity() + " " + getStreet() + " " + getZipcode();
     }
 
+    public boolean isValidAddress() {
+//        if (조건) {
+//            ... 검증 로직
+//            return false;
+//        }
+        return true;
+    }
+
     public String getCity() {
         return city;
     }
