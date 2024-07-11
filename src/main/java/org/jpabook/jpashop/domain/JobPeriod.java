@@ -2,6 +2,7 @@ package org.jpabook.jpashop.domain;
 
 import javax.persistence.Embeddable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Embeddable
 public class JobPeriod {
@@ -30,5 +31,13 @@ public class JobPeriod {
     public JobPeriod(LocalDateTime startDate, LocalDateTime endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        JobPeriod jobPeriod = (JobPeriod) object;
+        return Objects.equals(startDate, jobPeriod.startDate) && Objects.equals(endDate, jobPeriod.endDate);
     }
 }
