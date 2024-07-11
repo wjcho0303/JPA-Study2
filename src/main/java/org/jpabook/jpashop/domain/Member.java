@@ -3,7 +3,9 @@ package org.jpabook.jpashop.domain;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Member {
@@ -41,6 +43,14 @@ public class Member {
 
 //    @Column(name = "team_id")
 //    private Long teamId;
+
+    @ElementCollection
+    @CollectionTable(name = "favorite_foods")
+    private Set<String> favoriteFoods = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "address_history")
+    private List<Address> addressesHistory = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
