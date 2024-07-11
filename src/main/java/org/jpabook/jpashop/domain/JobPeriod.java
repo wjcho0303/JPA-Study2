@@ -38,11 +38,11 @@ public class JobPeriod {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         JobPeriod jobPeriod = (JobPeriod) object;
-        return Objects.equals(startDate, jobPeriod.startDate) && Objects.equals(endDate, jobPeriod.endDate);
+        return Objects.equals(getStartDate(), jobPeriod.getStartDate()) && Objects.equals(getEndDate(), jobPeriod.getEndDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(startDate, endDate);
+        return Objects.hash(getStartDate(), getEndDate());
     }
 }
