@@ -45,11 +45,11 @@ public class Member {
 //    private Long teamId;
 
     @ElementCollection
-    @CollectionTable(name = "favorite_foods")
+    @CollectionTable(name = "favorite_foods", joinColumns = @JoinColumn(name = "member_id"))
     private Set<String> favoriteFoods = new HashSet<>();
 
     @ElementCollection
-    @CollectionTable(name = "address_history")
+    @CollectionTable(name = "address_history", joinColumns = @JoinColumn(name = "member_id"))
     private List<Address> addressesHistory = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
