@@ -519,23 +519,24 @@ Member와 Team을 같이 사용하는 일이 대다수일 경우에는 EAGER로 
     List<Member> members = em.createQuery("select m from Member m", Member.class)
 				.getResultList();
 
-현재 상황은 Team 데이터가 1개 존재하는 상황이다.
+현재 상황은 Member 데이터는 여러 개 있고, Team 데이터가 1개 존재하는 상황이다.
 위 예시코드를 실행하면 Member 에 대한 select 쿼리 1번, Team에 대한 select 쿼리 1번 총 두 번 쿼리가 나갔다.
 
-즉시 로딩을 사용하는 이유는 애초부터 쿼리 한 번만으로 데이터를 다 가져오려는 것이었는데
-왜 쿼리가 두 번이나 나가는가? 
+엥? 즉시 로딩을 사용하는 이유는 애초부터 쿼리 한 번만으로 데이터를 다 가져오려는 것이었는데 왜 쿼리가 두 번이나 나가는가? 
 em.find() 메서드는 PK를 찍어서 가져오는 것이기 때문에 JPA가 내부적으로 최적화할 수 있다.
-그러나 JPQL은 작성된 내용이 그대로 SQL로 번역이 되서 일단 곧바로
-"select * from Member;" 라는 SQL문이 DB로 날아간다.
-그렇게 해서 Member 데이터들을 쭉 가져온 후 Team 필드에 대한 내용도 가져온다. 
+
+그러나 JPQL은 작성된 내용이 그대로 SQL로 번역이 되서 일단 곧바로 "select * from Member;" 라는 SQL문이 DB로 날아간다.
+그렇게 해서 Member 데이터들을 쭉 가져온 후 그 다음에 Team 필드에 대한 쿼리도 보내서 가져온다. 
 "select * from Team where Member.team_id = Team.team_id;"
+이렇게 쿼리가 두 번 나가버리는 것이다.
 
 여기서 문제는 처음에 Member 데이터들은 한번에 잘 가져오는데 만약 Member 들이 소속된 Team 데이터가 5가지일 경우 select 문이 5개가 추가로 나간다. 
-N+1이라는 말에서 1은 일단 이 상황에서는 Member를 가져오는 쿼리문이고, N은 Team을 가져오는 쿼리문이다.
+N+1이라는 말에서 1은 일단 이 상황에서는 Member를 가져오는 쿼리문의 개수이고, N은 Team을 가져오는 쿼리문의 개수이다.
+Member들이 속한 Team이 N개가 있으면 Member 조회 쿼리 한 번, Team 조회 쿼리 N번 이렇게 나가서 N + 1 문제라고 부르는 것이다.
 
 
 
-- JPQL N+1 문제에 대한 대안책: join fetch
+- JPQL의 N+1 문제에 대한 대안책: join fetch
 처음에 연관 관계 맵핑할 때는 무조건 LAZY 방식으로 설정해주어야 한다는 것은 알았다.
 하지만 JPQL을 사용할 때 N+1 문제를 방지하면서도 즉시 로딩과 같은 효과를 얻을 수 있는 방법은 없을까?
 그때는 join fetch를 사용한다. 
